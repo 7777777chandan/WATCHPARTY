@@ -1,0 +1,534 @@
+[
+  {
+    "label": "mixed · 10 clients",
+    "scenario": "mixed",
+    "clients": 10,
+    "duration": 60,
+    "actionInterval": 3000,
+    "out": "results/2026-10-12T15-40-30-689Z-mixed-10c.json",
+    "ok": true,
+    "latency": {
+      "count": 210,
+      "min": 0.86,
+      "p50": 1.59,
+      "p90": 2.11,
+      "p95": 2.26,
+      "p99": 2.5,
+      "max": 2.6,
+      "mean": 1.62
+    },
+    "drift": {
+      "count": 182,
+      "min": 0.05,
+      "p50": 75.5,
+      "p90": 152.38,
+      "p95": 183.1,
+      "p99": 228,
+      "max": 254.61,
+      "mean": 78.34
+    },
+    "correctness": {
+      "finalStateMismatches": 0,
+      "finalMismatchDetails": [],
+      "outOfOrderEvents": 0,
+      "lostEvents_seqGaps": 0,
+      "duplicateEvents": 0,
+      "serverFinalSeq": 22
+    },
+    "verdict": {
+      "latencyP95": {
+        "target": 250,
+        "value": 2.26,
+        "pass": true
+      },
+      "driftP95": {
+        "target": 500,
+        "value": 183.1,
+        "pass": true
+      },
+      "driftMax": {
+        "target": 500,
+        "value": 254.61,
+        "pass": true
+      },
+      "correctness": {
+        "pass": true
+      }
+    },
+    "scenarioResult": {
+      "actionsSent": 20
+    }
+  },
+  {
+    "label": "mixed · 15 clients",
+    "scenario": "mixed",
+    "clients": 15,
+    "duration": 120,
+    "actionInterval": 3000,
+    "out": "results/2026-10-12T15-40-30-689Z-mixed-15c.json",
+    "ok": true,
+    "latency": {
+      "count": 615,
+      "min": 0.65,
+      "p50": 1.56,
+      "p90": 2.09,
+      "p95": 2.33,
+      "p99": 2.96,
+      "max": 3.76,
+      "mean": 1.61
+    },
+    "drift": {
+      "count": 660,
+      "min": 0.14,
+      "p50": 77.43,
+      "p90": 176.42,
+      "p95": 209.15,
+      "p99": 271.76,
+      "max": 326.27,
+      "mean": 88.89
+    },
+    "correctness": {
+      "finalStateMismatches": 0,
+      "finalMismatchDetails": [],
+      "outOfOrderEvents": 0,
+      "lostEvents_seqGaps": 0,
+      "duplicateEvents": 0,
+      "serverFinalSeq": 42
+    },
+    "verdict": {
+      "latencyP95": {
+        "target": 250,
+        "value": 2.33,
+        "pass": true
+      },
+      "driftP95": {
+        "target": 500,
+        "value": 209.15,
+        "pass": true
+      },
+      "driftMax": {
+        "target": 500,
+        "value": 326.27,
+        "pass": true
+      },
+      "correctness": {
+        "pass": true
+      }
+    },
+    "scenarioResult": {
+      "actionsSent": 40
+    }
+  },
+  {
+    "label": "mixed · 30 clients",
+    "scenario": "mixed",
+    "clients": 30,
+    "duration": 60,
+    "actionInterval": 3000,
+    "out": "results/2026-10-12T15-40-30-689Z-mixed-30c.json",
+    "ok": true,
+    "latency": {
+      "count": 630,
+      "min": 0.49,
+      "p50": 1.68,
+      "p90": 2.54,
+      "p95": 2.86,
+      "p99": 3.35,
+      "max": 3.54,
+      "mean": 1.73
+    },
+    "drift": {
+      "count": 616,
+      "min": 0.5,
+      "p50": 70.28,
+      "p90": 172.79,
+      "p95": 204.63,
+      "p99": 249.09,
+      "max": 311.78,
+      "mean": 83.44
+    },
+    "correctness": {
+      "finalStateMismatches": 0,
+      "finalMismatchDetails": [],
+      "outOfOrderEvents": 0,
+      "lostEvents_seqGaps": 0,
+      "duplicateEvents": 0,
+      "serverFinalSeq": 22
+    },
+    "verdict": {
+      "latencyP95": {
+        "target": 250,
+        "value": 2.86,
+        "pass": true
+      },
+      "driftP95": {
+        "target": 500,
+        "value": 204.63,
+        "pass": true
+      },
+      "driftMax": {
+        "target": 500,
+        "value": 311.78,
+        "pass": true
+      },
+      "correctness": {
+        "pass": true
+      }
+    },
+    "scenarioResult": {
+      "actionsSent": 20
+    }
+  },
+  {
+    "label": "mixed · 15 clients · fine rates",
+    "scenario": "mixed",
+    "clients": 15,
+    "duration": 60,
+    "actionInterval": 3000,
+    "fineRates": true,
+    "out": "results/2026-10-12T15-40-30-689Z-mixed-15c-fine.json",
+    "ok": true,
+    "latency": {
+      "count": 315,
+      "min": 0.58,
+      "p50": 1.27,
+      "p90": 1.71,
+      "p95": 1.85,
+      "p99": 2.03,
+      "max": 2.41,
+      "mean": 1.3
+    },
+    "drift": {
+      "count": 216,
+      "min": 2.14,
+      "p50": 75.22,
+      "p90": 166.18,
+      "p95": 183.51,
+      "p99": 262.56,
+      "max": 473.01,
+      "mean": 84.67
+    },
+    "correctness": {
+      "finalStateMismatches": 0,
+      "finalMismatchDetails": [],
+      "outOfOrderEvents": 0,
+      "lostEvents_seqGaps": 0,
+      "duplicateEvents": 0,
+      "serverFinalSeq": 22
+    },
+    "verdict": {
+      "latencyP95": {
+        "target": 250,
+        "value": 1.85,
+        "pass": true
+      },
+      "driftP95": {
+        "target": 500,
+        "value": 183.51,
+        "pass": true
+      },
+      "driftMax": {
+        "target": 500,
+        "value": 473.01,
+        "pass": true
+      },
+      "correctness": {
+        "pass": true
+      }
+    },
+    "scenarioResult": {
+      "actionsSent": 20
+    }
+  },
+  {
+    "label": "burst · 15 clients",
+    "scenario": "burst",
+    "clients": 15,
+    "duration": 60,
+    "actionInterval": 3000,
+    "out": "results/2026-10-12T15-40-30-689Z-burst-15c.json",
+    "ok": true,
+    "latency": {
+      "count": 4515,
+      "min": -0.31,
+      "p50": 0.83,
+      "p90": 1.51,
+      "p95": 1.79,
+      "p99": 2.98,
+      "max": 4.36,
+      "mean": 0.9
+    },
+    "drift": {
+      "count": 247,
+      "min": 0.76,
+      "p50": 99.27,
+      "p90": 202.4,
+      "p95": 234.19,
+      "p99": 313.99,
+      "max": 414.21,
+      "mean": 109.41
+    },
+    "correctness": {
+      "finalStateMismatches": 0,
+      "finalMismatchDetails": [],
+      "outOfOrderEvents": 0,
+      "lostEvents_seqGaps": 0,
+      "duplicateEvents": 0,
+      "serverFinalSeq": 302
+    },
+    "verdict": {
+      "latencyP95": {
+        "target": 250,
+        "value": 1.79,
+        "pass": true
+      },
+      "driftP95": {
+        "target": 500,
+        "value": 234.19,
+        "pass": true
+      },
+      "driftMax": {
+        "target": 500,
+        "value": 414.21,
+        "pass": true
+      },
+      "correctness": {
+        "pass": true
+      }
+    },
+    "scenarioResult": {
+      "bursts": 20,
+      "converged": 20,
+      "convergenceFailures": []
+    }
+  },
+  {
+    "label": "churn · 15 clients",
+    "scenario": "churn",
+    "clients": 15,
+    "duration": 90,
+    "actionInterval": 3000,
+    "out": "results/2026-10-12T15-40-30-689Z-churn-15c.json",
+    "ok": true,
+    "latency": {
+      "count": 462,
+      "min": -0.13,
+      "p50": 1.36,
+      "p90": 2.01,
+      "p95": 2.16,
+      "p99": 2.32,
+      "max": 2.48,
+      "mean": 1.34
+    },
+    "drift": {
+      "count": 527,
+      "min": 0.86,
+      "p50": 76.63,
+      "p90": 183.39,
+      "p95": 210.68,
+      "p99": 279.09,
+      "max": 566.45,
+      "mean": 89.19
+    },
+    "correctness": {
+      "finalStateMismatches": 0,
+      "finalMismatchDetails": [],
+      "outOfOrderEvents": 0,
+      "lostEvents_seqGaps": 0,
+      "duplicateEvents": 0,
+      "serverFinalSeq": 30
+    },
+    "verdict": {
+      "latencyP95": {
+        "target": 250,
+        "value": 2.16,
+        "pass": true
+      },
+      "driftP95": {
+        "target": 500,
+        "value": 210.68,
+        "pass": true
+      },
+      "driftMax": {
+        "target": 500,
+        "value": 566.45,
+        "pass": false
+      },
+      "correctness": {
+        "pass": true
+      }
+    },
+    "scenarioResult": {
+      "actionsSent": 28,
+      "snapshots": [
+        {
+          "kind": "reconnect",
+          "name": "bot10",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot1",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot2",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "late-join",
+          "name": "late1",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 1
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot14",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 1
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot6",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 1
+        },
+        {
+          "kind": "reconnect",
+          "name": "late1",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot11",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 1
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot2",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot3",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "late-join",
+          "name": "late2",
+          "ms": 3,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot11",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot7",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        },
+        {
+          "kind": "reconnect",
+          "name": "bot8",
+          "ms": 1,
+          "correct": true,
+          "positionErrorMs": 0
+        }
+      ],
+      "snapshotsWithin1s": 14,
+      "snapshotsCorrect": 14
+    }
+  },
+  {
+    "label": "chat · 15 clients",
+    "scenario": "chat",
+    "clients": 15,
+    "duration": 60,
+    "actionInterval": 3000,
+    "out": "results/2026-10-12T15-40-30-689Z-chat-15c.json",
+    "ok": true,
+    "latency": {
+      "count": 315,
+      "min": 0.21,
+      "p50": 1.06,
+      "p90": 1.57,
+      "p95": 1.76,
+      "p99": 2.25,
+      "max": 2.64,
+      "mean": 1.08
+    },
+    "drift": {
+      "count": 224,
+      "min": 0.2,
+      "p50": 74.25,
+      "p90": 170.09,
+      "p95": 203.9,
+      "p99": 252.61,
+      "max": 285.12,
+      "mean": 83.29
+    },
+    "correctness": {
+      "finalStateMismatches": 0,
+      "finalMismatchDetails": [],
+      "outOfOrderEvents": 0,
+      "lostEvents_seqGaps": 0,
+      "duplicateEvents": 0,
+      "serverFinalSeq": 22
+    },
+    "verdict": {
+      "latencyP95": {
+        "target": 250,
+        "value": 1.76,
+        "pass": true
+      },
+      "driftP95": {
+        "target": 500,
+        "value": 203.9,
+        "pass": true
+      },
+      "driftMax": {
+        "target": 500,
+        "value": 285.12,
+        "pass": true
+      },
+      "correctness": {
+        "pass": true
+      }
+    },
+    "scenarioResult": {
+      "chatSent": 873,
+      "chatRejected": 0,
+      "reactionsSent": 4345,
+      "reactionsRejected": 0,
+      "actionsSent": 20,
+      "chatDeliveries": 13095,
+      "chatExpectedDeliveries": 13095,
+      "chatDeliveryRate": 1
+    }
+  }
+]

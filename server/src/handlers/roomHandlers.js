@@ -102,9 +102,11 @@ export function registerRoomHandlers(socket) {
     return { ok: true, code: room.code, room: buildSnapshot(room, userId), rejoined: Boolean(existing) };
   });
 
-  handle(socket, 'room:leave', () => {
+  handle(socket, 'room:leave', (payload) => {
     const m = membership(socket);
     if (!m) return NOT_IN_ROOM;
+    // A deferred leave for a room this socket already moved away from must not hit the new one.
+    if (payload.code !== undefined && payload.code !== m.room.code) return { ok: true, ignored: true };
     socket.leave(m.room.code);
     socket.data.roomCode = null;
     removeUserFully(m.room, m.user.userId);

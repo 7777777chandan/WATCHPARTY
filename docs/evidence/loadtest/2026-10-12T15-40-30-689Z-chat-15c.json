@@ -1,0 +1,572 @@
+{
+  "conditions": {
+    "timestamp": "2026-10-12T15:48:46.302Z",
+    "node": "v22.22.0",
+    "os": "Linux 6.18.44-fc-v114 (linux/x64)",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "cpuCores": 4,
+    "ramGB": 15.7,
+    "clients": 15,
+    "scenario": "chat",
+    "durationSec": 60,
+    "actionIntervalMs": 3000,
+    "serverUrl": "http://localhost:3001",
+    "sameMachine": true,
+    "network": "loopback (server and bots on the same machine)",
+    "transport": "websocket"
+  },
+  "targets": {
+    "propagationP95Ms": 250,
+    "driftAfterCorrectionMs": 500
+  },
+  "method": {
+    "latency": "sender stamps sentAt = its serverNow(); every receiver computes its serverNow() - sentAt on playback:state (includes clock-sync error)",
+    "drift": "|simulated player position - expected room position| sampled every 1 s while playing. \"drift\" = after correction: every sample except the ones that detected a disturbance and triggered a hard seek (those are, by definition, before the correction; they are kept in driftAllSamples). Not sampled during the 1.5 s settle window after a seek/play, or while the player is stalled (buffering).",
+    "simulation": "each bot player gains/loses 20-80 ms per second at random and stalls for 500-1500 ms with 3 % probability per second; seeks cost 40-120 ms; classic YouTube rate list (no soft correction; hard seek above 0.4 s)"
+  },
+  "latency": {
+    "count": 315,
+    "min": 0.21,
+    "p50": 1.06,
+    "p90": 1.57,
+    "p95": 1.76,
+    "p99": 2.25,
+    "max": 2.64,
+    "mean": 1.08
+  },
+  "serverToClient": {
+    "count": 359,
+    "min": -0.16,
+    "p50": 0.6,
+    "p90": 1.18,
+    "p95": 1.43,
+    "p99": 2.13,
+    "max": 2.52,
+    "mean": 0.63
+  },
+  "drift": {
+    "count": 224,
+    "min": 0.2,
+    "p50": 74.25,
+    "p90": 170.09,
+    "p95": 203.9,
+    "p99": 252.61,
+    "max": 285.12,
+    "mean": 83.29
+  },
+  "driftAllSamples": {
+    "count": 227,
+    "min": 0.2,
+    "p50": 75.84,
+    "p90": 178.87,
+    "p95": 224.69,
+    "p99": 681.24,
+    "max": 861.23,
+    "mean": 92.15
+  },
+  "correctness": {
+    "finalStateMismatches": 0,
+    "finalMismatchDetails": [],
+    "outOfOrderEvents": 0,
+    "lostEvents_seqGaps": 0,
+    "duplicateEvents": 0,
+    "serverFinalSeq": 22
+  },
+  "scenario": {
+    "chatSent": 873,
+    "chatRejected": 0,
+    "reactionsSent": 4345,
+    "reactionsRejected": 0,
+    "actionsSent": 20,
+    "chatDeliveries": 13095,
+    "chatExpectedDeliveries": 13095,
+    "chatDeliveryRate": 1
+  },
+  "verdict": {
+    "latencyP95": {
+      "target": 250,
+      "value": 1.76,
+      "pass": true
+    },
+    "driftP95": {
+      "target": 500,
+      "value": 203.9,
+      "pass": true
+    },
+    "driftMax": {
+      "target": 500,
+      "value": 285.12,
+      "pass": true
+    },
+    "correctness": {
+      "pass": true
+    }
+  },
+  "perClient": [
+    {
+      "name": "controller",
+      "clockOffsetMs": -0.4,
+      "rttMs": 0.3,
+      "latency": {
+        "count": 21,
+        "min": 0.31,
+        "p50": 0.8,
+        "p90": 1.08,
+        "p95": 1.08,
+        "p99": 1.14,
+        "max": 1.14,
+        "mean": 0.79
+      },
+      "drift": {
+        "count": 16,
+        "min": 1.84,
+        "p50": 67.13,
+        "p90": 153.87,
+        "p95": 170.09,
+        "p99": 170.09,
+        "max": 170.09,
+        "mean": 75.52
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot1",
+      "clockOffsetMs": -0.4,
+      "rttMs": 0.6,
+      "latency": {
+        "count": 21,
+        "min": 0.38,
+        "p50": 0.92,
+        "p90": 1.34,
+        "p95": 1.39,
+        "p99": 1.48,
+        "max": 1.48,
+        "mean": 0.97
+      },
+      "drift": {
+        "count": 16,
+        "min": 2.66,
+        "p50": 57.36,
+        "p90": 122.82,
+        "p95": 166.63,
+        "p99": 166.63,
+        "max": 166.63,
+        "mean": 65.91
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot2",
+      "clockOffsetMs": -0.6,
+      "rttMs": 0.9,
+      "latency": {
+        "count": 21,
+        "min": 0.22,
+        "p50": 0.75,
+        "p90": 1.12,
+        "p95": 1.2,
+        "p99": 1.27,
+        "max": 1.27,
+        "mean": 0.77
+      },
+      "drift": {
+        "count": 16,
+        "min": 1.27,
+        "p50": 58.29,
+        "p90": 234.21,
+        "p95": 285.12,
+        "p99": 285.12,
+        "max": 285.12,
+        "mean": 90.1
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot3",
+      "clockOffsetMs": -0.5,
+      "rttMs": 0.6,
+      "latency": {
+        "count": 21,
+        "min": 0.21,
+        "p50": 0.71,
+        "p90": 1.02,
+        "p95": 1.03,
+        "p99": 1.06,
+        "max": 1.06,
+        "mean": 0.72
+      },
+      "drift": {
+        "count": 10,
+        "min": 5.2,
+        "p50": 56.97,
+        "p90": 145.77,
+        "p95": 155.19,
+        "p99": 155.19,
+        "max": 155.19,
+        "mean": 72.65
+      },
+      "hardCorrections": 1,
+      "corrections": 1,
+      "stalls": 3,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot4",
+      "clockOffsetMs": -0.3,
+      "rttMs": 0.6,
+      "latency": {
+        "count": 21,
+        "min": 0.44,
+        "p50": 0.97,
+        "p90": 1.28,
+        "p95": 1.29,
+        "p99": 1.31,
+        "max": 1.31,
+        "mean": 0.97
+      },
+      "drift": {
+        "count": 14,
+        "min": 1.64,
+        "p50": 83.66,
+        "p90": 160.47,
+        "p95": 174.49,
+        "p99": 174.49,
+        "max": 174.49,
+        "mean": 85.93
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 1,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot5",
+      "clockOffsetMs": -0.5,
+      "rttMs": 0.2,
+      "latency": {
+        "count": 21,
+        "min": 0.33,
+        "p50": 0.91,
+        "p90": 1.3,
+        "p95": 1.34,
+        "p99": 1.49,
+        "max": 1.49,
+        "mean": 0.92
+      },
+      "drift": {
+        "count": 16,
+        "min": 3.25,
+        "p50": 39.4,
+        "p90": 125.08,
+        "p95": 130.8,
+        "p99": 130.8,
+        "max": 130.8,
+        "mean": 55.83
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot6",
+      "clockOffsetMs": -0.3,
+      "rttMs": 0.4,
+      "latency": {
+        "count": 21,
+        "min": 0.51,
+        "p50": 1.12,
+        "p90": 1.5,
+        "p95": 1.54,
+        "p99": 1.73,
+        "max": 1.73,
+        "mean": 1.12
+      },
+      "drift": {
+        "count": 15,
+        "min": 7.87,
+        "p50": 113.83,
+        "p90": 199.74,
+        "p95": 226.62,
+        "p99": 226.62,
+        "max": 226.62,
+        "mean": 105.42
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 1,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot7",
+      "clockOffsetMs": -0.1,
+      "rttMs": 0.5,
+      "latency": {
+        "count": 21,
+        "min": 0.76,
+        "p50": 1.4,
+        "p90": 1.8,
+        "p95": 1.8,
+        "p99": 2.04,
+        "max": 2.04,
+        "mean": 1.4
+      },
+      "drift": {
+        "count": 14,
+        "min": 10.58,
+        "p50": 84.29,
+        "p90": 137.73,
+        "p95": 137.75,
+        "p99": 137.75,
+        "max": 137.75,
+        "mean": 83.01
+      },
+      "hardCorrections": 1,
+      "corrections": 1,
+      "stalls": 1,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot8",
+      "clockOffsetMs": -0.3,
+      "rttMs": 0.4,
+      "latency": {
+        "count": 21,
+        "min": 0.56,
+        "p50": 1.17,
+        "p90": 1.57,
+        "p95": 1.6,
+        "p99": 1.81,
+        "max": 1.81,
+        "mean": 1.19
+      },
+      "drift": {
+        "count": 14,
+        "min": 0.58,
+        "p50": 100.63,
+        "p90": 224.69,
+        "p95": 252.61,
+        "p99": 252.61,
+        "max": 252.61,
+        "mean": 104.31
+      },
+      "hardCorrections": 1,
+      "corrections": 1,
+      "stalls": 1,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot9",
+      "clockOffsetMs": -0.2,
+      "rttMs": 0.3,
+      "latency": {
+        "count": 21,
+        "min": 0.71,
+        "p50": 1.35,
+        "p90": 1.76,
+        "p95": 1.76,
+        "p99": 2.04,
+        "max": 2.04,
+        "mean": 1.37
+      },
+      "drift": {
+        "count": 16,
+        "min": 6.12,
+        "p50": 53.71,
+        "p90": 128.81,
+        "p95": 150.27,
+        "p99": 150.27,
+        "max": 150.27,
+        "mean": 65.29
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot10",
+      "clockOffsetMs": -0.2,
+      "rttMs": 0.2,
+      "latency": {
+        "count": 21,
+        "min": 0.66,
+        "p50": 1.29,
+        "p90": 1.71,
+        "p95": 1.79,
+        "p99": 2.25,
+        "max": 2.25,
+        "mean": 1.29
+      },
+      "drift": {
+        "count": 14,
+        "min": 2.33,
+        "p50": 93.29,
+        "p90": 227.92,
+        "p95": 256.52,
+        "p99": 256.52,
+        "max": 256.52,
+        "mean": 113.67
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 2,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot11",
+      "clockOffsetMs": -0.4,
+      "rttMs": 0.9,
+      "latency": {
+        "count": 21,
+        "min": 0.56,
+        "p50": 1.2,
+        "p90": 1.62,
+        "p95": 1.76,
+        "p99": 2.31,
+        "max": 2.31,
+        "mean": 1.23
+      },
+      "drift": {
+        "count": 16,
+        "min": 6.09,
+        "p50": 106.31,
+        "p90": 220.82,
+        "p95": 228.71,
+        "p99": 228.71,
+        "max": 228.71,
+        "mean": 125.39
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot12",
+      "clockOffsetMs": -0.6,
+      "rttMs": 0.5,
+      "latency": {
+        "count": 21,
+        "min": 0.38,
+        "p50": 1,
+        "p90": 1.44,
+        "p95": 1.57,
+        "p99": 2.19,
+        "max": 2.19,
+        "mean": 1.03
+      },
+      "drift": {
+        "count": 16,
+        "min": 6.83,
+        "p50": 83.46,
+        "p90": 208.19,
+        "p95": 229.67,
+        "p99": 229.67,
+        "max": 229.67,
+        "mean": 91.6
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot13",
+      "clockOffsetMs": -0.6,
+      "rttMs": 0.4,
+      "latency": {
+        "count": 21,
+        "min": 0.41,
+        "p50": 1,
+        "p90": 1.45,
+        "p95": 1.58,
+        "p99": 2.25,
+        "max": 2.25,
+        "mean": 1.04
+      },
+      "drift": {
+        "count": 15,
+        "min": 3.93,
+        "p50": 58.07,
+        "p90": 137.75,
+        "p95": 151.33,
+        "p99": 151.33,
+        "max": 151.33,
+        "mean": 67.24
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 1,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot14",
+      "clockOffsetMs": -0.4,
+      "rttMs": 0.3,
+      "latency": {
+        "count": 21,
+        "min": 0.66,
+        "p50": 1.28,
+        "p90": 1.84,
+        "p95": 1.92,
+        "p99": 2.64,
+        "max": 2.64,
+        "mean": 1.35
+      },
+      "drift": {
+        "count": 16,
+        "min": 0.2,
+        "p50": 38.54,
+        "p90": 101.77,
+        "p95": 102.55,
+        "p99": 102.55,
+        "max": 102.55,
+        "mean": 50.52
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    }
+  ]
+}

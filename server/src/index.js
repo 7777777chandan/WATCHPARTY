@@ -30,6 +30,12 @@ const { server } = createAppServer({
   allowLan: process.env.ALLOW_LAN !== 'false',
 });
 
+// Startup failures (port in use, permission denied) are fatal: exit instead of idling.
+server.on('error', (err) => {
+  logger.error(`[server] cannot listen on port ${PORT}: ${err.message}`);
+  process.exit(1);
+});
+
 server.listen(PORT, () => {
   logger.info(`[server] listening on http://localhost:${PORT} (client origin ${CLIENT_ORIGIN})`);
 });

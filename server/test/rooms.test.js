@@ -144,3 +144,13 @@ test('same socket switching identity in a room does not leave a ghost member', a
   const res = await emit(s, 'room:join', { code, name: 'Second', userId: uid() });
   assert.deepEqual(res.room.users.map((u) => u.name), ['Host', 'Second']);
 });
+
+test('a stale leave for the previous room does not leave the new one', async () => {
+  const s = await srv.connect();
+  const id = uid();
+  const first = await emit(s, 'room:create', { name: 'Me', userId: id });
+  const second = await emit(s, 'room:create', { name: 'Me', userId: id });
+  assert.equal((await emit(s, 'room:leave', { code: first.code })).ignored, true);
+  assert.equal((await emit(s, 'chat:send', { text: 'still in the second room' })).ok, true);
+  assert.ok(second.ok);
+});

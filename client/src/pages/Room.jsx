@@ -203,7 +203,7 @@ function RoomSession({ code, name }) {
   });
 
   const leave = () => {
-    socket.emit('room:leave', () => {});
+    socket.emit('room:leave', { code }, () => {});
   };
 
   const openRecap = async () => {

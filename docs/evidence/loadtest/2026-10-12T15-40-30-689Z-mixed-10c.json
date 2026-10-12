@@ -1,0 +1,410 @@
+{
+  "conditions": {
+    "timestamp": "2026-10-12T15:40:30.690Z",
+    "node": "v22.22.0",
+    "os": "Linux 6.18.44-fc-v114 (linux/x64)",
+    "cpu": "Intel(R) Xeon(R) Processor @ 2.80GHz",
+    "cpuCores": 4,
+    "ramGB": 15.7,
+    "clients": 10,
+    "scenario": "mixed",
+    "durationSec": 60,
+    "actionIntervalMs": 3000,
+    "serverUrl": "http://localhost:3001",
+    "sameMachine": true,
+    "network": "loopback (server and bots on the same machine)",
+    "transport": "websocket"
+  },
+  "targets": {
+    "propagationP95Ms": 250,
+    "driftAfterCorrectionMs": 500
+  },
+  "method": {
+    "latency": "sender stamps sentAt = its serverNow(); every receiver computes its serverNow() - sentAt on playback:state (includes clock-sync error)",
+    "drift": "|simulated player position - expected room position| sampled every 1 s while playing. \"drift\" = after correction: every sample except the ones that detected a disturbance and triggered a hard seek (those are, by definition, before the correction; they are kept in driftAllSamples). Not sampled during the 1.5 s settle window after a seek/play, or while the player is stalled (buffering).",
+    "simulation": "each bot player gains/loses 20-80 ms per second at random and stalls for 500-1500 ms with 3 % probability per second; seeks cost 40-120 ms; classic YouTube rate list (no soft correction; hard seek above 0.4 s)"
+  },
+  "latency": {
+    "count": 210,
+    "min": 0.86,
+    "p50": 1.59,
+    "p90": 2.11,
+    "p95": 2.26,
+    "p99": 2.5,
+    "max": 2.6,
+    "mean": 1.62
+  },
+  "serverToClient": {
+    "count": 239,
+    "min": 0.11,
+    "p50": 0.87,
+    "p90": 1.52,
+    "p95": 1.7,
+    "p99": 1.94,
+    "max": 2.03,
+    "mean": 0.91
+  },
+  "drift": {
+    "count": 182,
+    "min": 0.05,
+    "p50": 75.5,
+    "p90": 152.38,
+    "p95": 183.1,
+    "p99": 228,
+    "max": 254.61,
+    "mean": 78.34
+  },
+  "driftAllSamples": {
+    "count": 186,
+    "min": 0.05,
+    "p50": 76.01,
+    "p90": 166.68,
+    "p95": 194.82,
+    "p99": 1135.94,
+    "max": 1300.1,
+    "mean": 101.79
+  },
+  "correctness": {
+    "finalStateMismatches": 0,
+    "finalMismatchDetails": [],
+    "outOfOrderEvents": 0,
+    "lostEvents_seqGaps": 0,
+    "duplicateEvents": 0,
+    "serverFinalSeq": 22
+  },
+  "scenario": {
+    "actionsSent": 20
+  },
+  "verdict": {
+    "latencyP95": {
+      "target": 250,
+      "value": 2.26,
+      "pass": true
+    },
+    "driftP95": {
+      "target": 500,
+      "value": 183.1,
+      "pass": true
+    },
+    "driftMax": {
+      "target": 500,
+      "value": 254.61,
+      "pass": true
+    },
+    "correctness": {
+      "pass": true
+    }
+  },
+  "perClient": [
+    {
+      "name": "controller",
+      "clockOffsetMs": -0.4,
+      "rttMs": 1.3,
+      "latency": {
+        "count": 21,
+        "min": 0.87,
+        "p50": 1.24,
+        "p90": 1.59,
+        "p95": 1.67,
+        "p99": 1.84,
+        "max": 1.84,
+        "mean": 1.29
+      },
+      "drift": {
+        "count": 11,
+        "min": 1.75,
+        "p50": 80.09,
+        "p90": 152.22,
+        "p95": 155.52,
+        "p99": 155.52,
+        "max": 155.52,
+        "mean": 90.85
+      },
+      "hardCorrections": 2,
+      "corrections": 2,
+      "stalls": 3,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot1",
+      "clockOffsetMs": -0.3,
+      "rttMs": 0.7,
+      "latency": {
+        "count": 21,
+        "min": 1,
+        "p50": 1.46,
+        "p90": 1.85,
+        "p95": 1.9,
+        "p99": 2.01,
+        "max": 2.01,
+        "mean": 1.5
+      },
+      "drift": {
+        "count": 19,
+        "min": 0.05,
+        "p50": 88.26,
+        "p90": 149.72,
+        "p95": 166.68,
+        "p99": 166.68,
+        "max": 166.68,
+        "mean": 79.75
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot2",
+      "clockOffsetMs": -0.5,
+      "rttMs": 0.6,
+      "latency": {
+        "count": 21,
+        "min": 0.86,
+        "p50": 1.34,
+        "p90": 1.72,
+        "p95": 1.81,
+        "p99": 1.87,
+        "max": 1.87,
+        "mean": 1.38
+      },
+      "drift": {
+        "count": 19,
+        "min": 7.21,
+        "p50": 94.1,
+        "p90": 183.1,
+        "p95": 203.82,
+        "p99": 203.82,
+        "max": 203.82,
+        "mean": 94.01
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot3",
+      "clockOffsetMs": -0.1,
+      "rttMs": 0.4,
+      "latency": {
+        "count": 21,
+        "min": 1.3,
+        "p50": 1.79,
+        "p90": 2.27,
+        "p95": 2.29,
+        "p99": 2.31,
+        "max": 2.31,
+        "mean": 1.85
+      },
+      "drift": {
+        "count": 16,
+        "min": 6.81,
+        "p50": 40.1,
+        "p90": 141.22,
+        "p95": 189.19,
+        "p99": 189.19,
+        "max": 189.19,
+        "mean": 63.36
+      },
+      "hardCorrections": 1,
+      "corrections": 1,
+      "stalls": 1,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot4",
+      "clockOffsetMs": -0.5,
+      "rttMs": 0.4,
+      "latency": {
+        "count": 21,
+        "min": 0.93,
+        "p50": 1.42,
+        "p90": 1.94,
+        "p95": 1.95,
+        "p99": 1.98,
+        "max": 1.98,
+        "mean": 1.49
+      },
+      "drift": {
+        "count": 17,
+        "min": 4.35,
+        "p50": 40.61,
+        "p90": 193.92,
+        "p95": 228,
+        "p99": 228,
+        "max": 228,
+        "mean": 76.62
+      },
+      "hardCorrections": 1,
+      "corrections": 1,
+      "stalls": 1,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot5",
+      "clockOffsetMs": -0.5,
+      "rttMs": 0.3,
+      "latency": {
+        "count": 21,
+        "min": 1.04,
+        "p50": 1.55,
+        "p90": 2.08,
+        "p95": 2.09,
+        "p99": 2.16,
+        "max": 2.16,
+        "mean": 1.63
+      },
+      "drift": {
+        "count": 20,
+        "min": 2.62,
+        "p50": 66.35,
+        "p90": 128.75,
+        "p95": 131.34,
+        "p99": 162.81,
+        "max": 162.81,
+        "mean": 71.1
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot6",
+      "clockOffsetMs": -0.2,
+      "rttMs": 1,
+      "latency": {
+        "count": 21,
+        "min": 1.33,
+        "p50": 1.92,
+        "p90": 2.39,
+        "p95": 2.4,
+        "p99": 2.45,
+        "max": 2.45,
+        "mean": 1.93
+      },
+      "drift": {
+        "count": 20,
+        "min": 1.04,
+        "p50": 66.33,
+        "p90": 121.85,
+        "p95": 129.35,
+        "p99": 167.36,
+        "max": 167.36,
+        "mean": 67.33
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot7",
+      "clockOffsetMs": -0.7,
+      "rttMs": 0.5,
+      "latency": {
+        "count": 21,
+        "min": 0.96,
+        "p50": 1.5,
+        "p90": 1.97,
+        "p95": 1.97,
+        "p99": 2,
+        "max": 2,
+        "mean": 1.49
+      },
+      "drift": {
+        "count": 20,
+        "min": 2.32,
+        "p50": 52.99,
+        "p90": 205.07,
+        "p95": 225.8,
+        "p99": 254.61,
+        "max": 254.61,
+        "mean": 82
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot8",
+      "clockOffsetMs": -0.7,
+      "rttMs": 0.3,
+      "latency": {
+        "count": 21,
+        "min": 1.06,
+        "p50": 1.62,
+        "p90": 2.09,
+        "p95": 2.12,
+        "p99": 2.22,
+        "max": 2.22,
+        "mean": 1.61
+      },
+      "drift": {
+        "count": 20,
+        "min": 2.92,
+        "p50": 73.83,
+        "p90": 129.78,
+        "p95": 145.28,
+        "p99": 160.97,
+        "max": 160.97,
+        "mean": 78.71
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    },
+    {
+      "name": "bot9",
+      "clockOffsetMs": -0.3,
+      "rttMs": 0.3,
+      "latency": {
+        "count": 21,
+        "min": 1.43,
+        "p50": 2,
+        "p90": 2.5,
+        "p95": 2.58,
+        "p99": 2.6,
+        "max": 2.6,
+        "mean": 2.02
+      },
+      "drift": {
+        "count": 20,
+        "min": 2.5,
+        "p50": 81.06,
+        "p90": 151.44,
+        "p95": 151.5,
+        "p99": 194.82,
+        "max": 194.82,
+        "mean": 82.89
+      },
+      "hardCorrections": 0,
+      "corrections": 0,
+      "stalls": 0,
+      "seqGaps": 0,
+      "outOfOrder": 0,
+      "duplicates": 0
+    }
+  ]
+}

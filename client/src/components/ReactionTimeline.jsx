@@ -66,7 +66,7 @@ export default function ReactionTimeline({ reactions, playback, controller, canS
             key={b.start}
             type="button"
             className="timeline-marker"
-            style={{ left: pct(b.start + BUCKET / 2) }}
+            style={{ left: `clamp(12px, ${pct(b.start + BUCKET / 2)}, calc(100% - 12px))` }}
             title={`${formatTime(b.start)}: ${b.count} reaction${b.count > 1 ? 's' : ''}${canSeek ? ' (click to jump)' : ''}`}
             aria-label={`${b.count} reactions at ${formatTime(b.start)}`}
             onClick={() => canSeek && onSeek(b.start)}

@@ -14,3 +14,7 @@
 - Step 11: TMDB proxy (categories, filters, search, trailers, cache, rate limit, timeouts), movies tab with Fuse.js fuzzy search, suggestion cards in chat
 - Step 12: creative features: reaction timeline with replay, Catch me up, live sync dashboard, watch stats recap, spoiler-safe chat, synchronized countdown
 - Step 13: design tokens with dark/light themes, responsive layout, unread badges, toasts, keyboard shortcuts, accessibility pass
+- Step 14: load tester (mixed/burst/churn/chat, 10/15/30 clients) with PASS/FAIL tables and recorded test conditions
+- Step 15: failure-handling tests (browser + server), 7 bugs found and fixed, docs/FAILURE_HANDLING.md
+- Step 16: docs/REPORT.md with measured results (evidence in docs/evidence/), README demo script
+- Step 17: review table produced (see the end-of-session summary); fixes pending approval

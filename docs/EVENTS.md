@@ -17,11 +17,13 @@ Conventions
 | `time:ping` | C→S (ack) | `{ t0 }` → ack `{ t0, ts }` | Clock sync. Server replies with `Date.now()` immediately. |
 | `room:create` | C→S (ack) | `{ name (1–24), userId }` → `{ ok, code, room: Snapshot }` | Creates a room. The creator becomes host. Leaves any previous room. |
 | `room:join` | C→S (ack) | `{ code (6), name, userId }` → `{ ok, code, room: Snapshot, rejoined }` | Joins, or **rejoins** (same userId rebinds the socket and keeps host status, with no join message). Errors: `ROOM_NOT_FOUND`, `BANNED`, `LOCKED`, `FULL` (>50). |
-| `room:leave` | C→S (ack) | – | Leaves immediately. Host leaving transfers host. An empty room is deleted. |
+| `room:leave` | C→S (ack) | `{ code? }` | Leaves immediately (ignored if `code` is given and the socket is in a different room). Host leaving transfers host. An empty room is deleted. |
 | `room:users` | S→C | `[{ userId, name, isHost, connected }]` | Broadcast on every membership or connection change. |
 | `room:host` | S→C | `{ hostId, name, reason }` | Host changed (`transfer`, `host-left`, `host-timeout`). |
 | `room:settings` | C→S (ack) host | `{ controlMode?: 'everyone'\|'host-only', chatEnabled?: bool, locked?: bool }` | Partial settings update. |
 | `room:settings` | S→C | `{ controlMode, chatEnabled, locked }` | Broadcast after a change. |
+| `host:transfer` | C→S (ack) host | `{ toUserId }` | Makes a connected member the host. Broadcasts `room:host`. |
+| `user:kick` | C→S (ack) host | `{ userId }` | Removes the member. Their socket gets `kicked`, and their userId can't rejoin for 10 minutes. |
 | `session:replaced` | S→C | `{ code }` | This userId joined from another tab. This socket is then disconnected. |
 | `kicked` | S→C | `{ code, by, banMinutes }` | You were kicked (rejoin blocked for 10 min). |
 | `room:end` | C→S (ack) host | – → `{ ok, recap }` | Ends the party for everyone and deletes the room. |

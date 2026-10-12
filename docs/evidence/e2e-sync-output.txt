@@ -1,0 +1,26 @@
+PASS  both users see each other in the user list  (room ZWMMEN)
+PASS  host shown with a crown
+PASS  video:set reaches the guest
+PASS  invalid URL shows an error
+PASS  play in A mirrors in B  (140 ms incl. fake buffering + polling)
+PASS  positions match after play  (A 1.28 B 1.21)
+PASS  no echo loop: one play = one seq increment  (seq 1 -> A 2 B 2)
+PASS  pause in B mirrors in A  (217 ms (includes 200 ms pause deferral))
+PASS  paused positions match  (A 1.22 B 1.22)
+PASS  seek in B mirrors in A (paused)
+PASS  seek in A mirrors in B (playing)  (A 201.30 B 201.24)
+PASS  rapid clicking converges to one state  (seq A 11 B 11, playing true/true, t 262.50/262.44)
+PASS  late joiner lands at the room position, playing  (A 155.12 C 155.11)
+PASS  refresh: same user, still host, no duplicate
+PASS  refresh: resynced to the room  (A 157.96 B 157.98)
+PASS  disconnect shows "Reconnecting..." banner
+PASS  reconnect resyncs (missed a seek while offline)  (A 307.30 B 307.24)
+PASS  injected +0.5s drift corrected automatically  (1521 ms, residual 379 ms)
+PASS  injected +1s drift corrected automatically  (1768 ms, residual -60 ms)
+PASS  injected +3s drift corrected automatically  (2528 ms, residual -60 ms)
+PASS  0.35 s behind with fine rates: soft correction (1.05x) then back to 1x  (11514 ms)
+PASS  chat renders <script> as plain text
+PASS  reaction floats on the other tab
+PASS  duplicate tab: the old tab shows "session replaced"
+
+24/24 checks passed

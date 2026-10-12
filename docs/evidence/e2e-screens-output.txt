@@ -1,0 +1,11 @@
+PASS  360px dark: no horizontal scroll, player and tabs visible  (landing overflow false, room overflow false)
+PASS  360px light: no horizontal scroll, player and tabs visible  (landing overflow false, room overflow false)
+PASS  768px dark: no horizontal scroll, player and tabs visible  (landing overflow false, room overflow false)
+PASS  768px light: no horizontal scroll, player and tabs visible  (landing overflow false, room overflow false)
+PASS  1440px dark: no horizontal scroll, player and tabs visible  (landing overflow false, room overflow false)
+PASS  1440px light: no horizontal scroll, player and tabs visible  (landing overflow false, room overflow false)
+PASS  "R" moves focus to the reaction bar  (React 😂)
+PASS  "?" opens the shortcuts dialog
+PASS  every input has a label  (0 unlabeled)
+
+9/9 checks passed · screenshots in e2e/screens/

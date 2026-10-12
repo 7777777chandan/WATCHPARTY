@@ -1,0 +1,18 @@
+PASS  3 s drop: the user is greyed out (not removed) for others
+PASS  3 s drop: back in the room and resynced  (t 5.47 / 5.41, state 1/1)
+PASS  host away 5 s (inside 15 s grace): still host
+PASS  host away 20 s: host transferred after the 15 s grace
+PASS  host away 20 s: returns as a guest, Bob stays host  ([{"text":"Alice (you)","offline":false,"host":false},{"text":"Bob 👑","offline":false,"host":true}])
+PASS  host away 20 s: resynced on return  (t 34.32 / 34.25, state 1/1)
+PASS  unembeddable video: everyone sees an explanation
+PASS  unembeddable video: guest is told the host can skip
+PASS  unembeddable video: host skip plays the next item for everyone
+PASS  TMDB down: movies tab shows an error state, chat still works
+PASS  panel crash: error boundary contains it, player keeps working, retry recovers
+PASS  90 s drop: removed from the room after the 60 s grace  (60 s)
+PASS  90 s drop: rejoins automatically and resyncs  (t 92.97 / 93.04, state 1/1)
+PASS  server down: clients show "Reconnecting..."
+PASS  server restarted: clients see "room no longer exists"
+PASS  server restarted: one click recreates a room  (http://localhost:5173/room/ZPA4WW)
+
+16/16 checks passed
