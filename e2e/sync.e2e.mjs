@@ -206,7 +206,7 @@ async function main() {
   await D.page.goto(`${APP}/room/${code}`);
   await D.page.waitForFunction(isPlaying, null, { timeout: 6000 });
   await sleep(2500);
-  await D.page.evaluate(() => window.__wpController.injectDrift(-0.8));
+  await D.page.evaluate(() => window.__wpController.injectDrift(-0.35));
   let sawSoft = false;
   let fixedSoft = false;
   const s0 = Date.now();
@@ -219,7 +219,7 @@ async function main() {
       break;
     }
   }
-  check('0.8 s behind with fine rates: soft correction (1.05x) then back to 1x', sawSoft && fixedSoft, `${Date.now() - s0} ms`);
+  check('0.35 s behind with fine rates: soft correction (1.05x) then back to 1x', sawSoft && fixedSoft, `${Date.now() - s0} ms`);
 
   // --- chat XSS + reactions + duplicate tab ---
   await A.page.getByRole('tab', { name: /Chat/ }).click();

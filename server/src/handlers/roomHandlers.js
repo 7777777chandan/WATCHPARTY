@@ -74,8 +74,11 @@ export function registerRoomHandlers(socket) {
       return { ok: false, error: 'You were removed from this room. Try again later.', code: 'BANNED' };
     }
 
-    // Leaving a different room first (joining a new one from the same tab).
-    if (socket.data.roomCode && socket.data.roomCode !== room.code) detachSocketFromRoom(socket);
+    // This socket is bound to another room, or to this room as a different identity
+    // (e.g. "join as another person"): release that membership first so it can't linger.
+    if (socket.data.roomCode && (socket.data.roomCode !== room.code || socket.data.userId !== userId)) {
+      detachSocketFromRoom(socket);
+    }
 
     const existing = room.users.get(userId);
     if (existing) {

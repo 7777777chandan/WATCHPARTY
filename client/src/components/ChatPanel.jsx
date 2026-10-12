@@ -13,6 +13,8 @@ function loadSpoilerSafe() {
 }
 
 export default function ChatPanel({ chat, you, emit, chatEnabled, isHost, onOpenMovie }) {
+  // Development-only switch used by the e2e test of the per-panel error boundary.
+  if (import.meta.env.DEV && window.__wpCrashPanel === 'chat') throw new Error('Simulated chat crash');
   const [text, setText] = useState('');
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(null);

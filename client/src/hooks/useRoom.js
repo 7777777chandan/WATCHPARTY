@@ -185,7 +185,7 @@ export function useRoom({ code, name, controller }) {
         code,
         timer: setTimeout(() => {
           pendingLeave = null;
-          if (socket.connected) socket.emit('room:leave');
+          if (socket.connected) socket.emit('room:leave', () => {});
         }, 150),
       };
     };

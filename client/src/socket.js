@@ -20,3 +20,6 @@ function resolveServerUrl() {
 export const SERVER_URL = resolveServerUrl();
 
 export const socket = io(SERVER_URL, { autoConnect: false });
+
+// Development-only handle for the e2e failure tests (network drops of arbitrary length).
+if (import.meta.env.DEV) window.__wpSocket = socket;

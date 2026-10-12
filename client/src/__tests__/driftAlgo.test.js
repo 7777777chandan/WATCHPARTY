@@ -8,16 +8,17 @@ describe('decideCorrection', () => {
     expect(decideCorrection({ drift: 0.05 }).action).toBe('none');
   });
   it('speeds up when behind and slows down when ahead', () => {
-    expect(decideCorrection({ drift: -0.5 })).toEqual({ action: 'soft', rate: 1.05 });
-    expect(decideCorrection({ drift: 0.5 })).toEqual({ action: 'soft', rate: 0.95 });
+    expect(decideCorrection({ drift: -0.3 })).toEqual({ action: 'soft', rate: 1.05 });
+    expect(decideCorrection({ drift: 0.3 })).toEqual({ action: 'soft', rate: 0.95 });
   });
   it('restores rate 1 once under 0.1 s', () => {
     expect(decideCorrection({ drift: 0.08, currentRate: 1.05 })).toEqual({ action: 'restore', rate: 1 });
     expect(decideCorrection({ drift: 0.12, currentRate: 1.05 }).action).toBe('none');
   });
-  it('hard seeks at 1.5 s, except during cooldown', () => {
+  it('hard seeks at 0.5 s, except during cooldown', () => {
     expect(decideCorrection({ drift: 3 }).action).toBe('hard');
-    expect(decideCorrection({ drift: -1.5 }).action).toBe('hard');
+    expect(decideCorrection({ drift: -0.5 }).action).toBe('hard');
+    expect(decideCorrection({ drift: -0.49 }).action).toBe('soft');
     expect(decideCorrection({ drift: 3, inCooldown: true }).action).toBe('none');
   });
   it('without fine rates: tolerate up to 0.4 s, hard seek above', () => {

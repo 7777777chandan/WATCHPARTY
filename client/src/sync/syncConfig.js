@@ -15,10 +15,14 @@ export const SYNC = {
   // Drift correction loop
   DRIFT_INTERVAL_MS: 1000,
   DRIFT_SAMPLES: 3, // moving average window
+  DRIFT_STEP: 0.5, // a single raw sample this far off is a real step (stall), not noise: no averaging
   DRIFT_GRACE_AFTER_SEEK_MS: 1500, // don't measure right after a seek/play (buffering)
   DRIFT_OK: 0.15, // |drift| below this: in sync
   DRIFT_RESTORE: 0.1, // a soft correction ends once |drift| is below this
-  DRIFT_HARD: 1.5, // |drift| at or above this: hard seek
+  // |drift| at or above this: hard seek. The brief suggested 1.5 s, but soft correction at 1.05x
+  // only removes 50 ms per second: from 1.4 s it would take ~28 s and stay above the 500 ms
+  // target for ~18 s. With 0.5 s, soft correction (0.15-0.5 s) never exceeds the target.
+  DRIFT_HARD: 0.5,
   DRIFT_HARD_NO_FINE_RATES: 0.4, // without fine playback rates, hard seek above this
   SOFT_RATE_DELTA: 0.05, // 1.05x when behind, 0.95x when ahead
   HARD_SEEK_COOLDOWN_MS: 3000,

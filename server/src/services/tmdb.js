@@ -5,7 +5,8 @@
 import { config } from '../config.js';
 import { createTtlCache } from '../utils/ttlCache.js';
 
-const BASE = 'https://api.themoviedb.org/3';
+// Overridable so tests can point at a fake (or a dead) TMDB.
+const base = () => process.env.TMDB_BASE_URL || 'https://api.themoviedb.org/3';
 const POSTER_BASE = 'https://image.tmdb.org/t/p/w342';
 const cache = createTtlCache({ ttlMs: config.TMDB_CACHE_TTL_MS, maxEntries: 500 });
 
@@ -37,7 +38,7 @@ export function isConfigured() {
 async function tmdbFetch(path, params = {}) {
   const auth = token();
   if (!auth) throw new TmdbError(503, 'Movie discovery is not configured (TMDB token missing on the server)');
-  const url = new URL(BASE + path);
+  const url = new URL(base() + path);
   for (const [k, v] of Object.entries(params)) if (v !== undefined && v !== null && v !== '') url.searchParams.set(k, String(v));
   url.searchParams.set('language', 'en-US');
   const key = url.toString();
@@ -87,15 +88,19 @@ function normalize(m) {
   };
 }
 
-async function ensureGenres() {
-  if (!genreMap) {
-    try {
-      await getGenres();
-    } catch {
-      /* genres are cosmetic; listing still works without them */
-    }
-  }
+let genresInFlight = null;
+/** Genre names are cosmetic: fetched alongside (never before) the real request, errors ignored. */
+function ensureGenres() {
+  if (genreMap) return Promise.resolve();
+  genresInFlight ||= getGenres()
+    .catch(() => {})
+    .finally(() => {
+      genresInFlight = null;
+    });
+  return genresInFlight;
 }
+
+const withGenres = async (request) => (await Promise.all([request, ensureGenres()]))[0];
 
 function toPage(data) {
   return {
@@ -110,10 +115,9 @@ const daysAgo = (n) => new Date(Date.now() - n * 86400_000).toISOString().slice(
 
 /** Category list endpoints don't support filters, so filtered queries go through /discover. */
 export async function listMovies({ category = 'popular', genre, year, minRating, page = 1 }) {
-  await ensureGenres();
   const cat = CATEGORIES.find((c) => c.id === category) || CATEGORIES[1];
   const filtered = genre || year || minRating;
-  if (!filtered) return toPage(await tmdbFetch(cat.path, { page }));
+  if (!filtered) return toPage(await withGenres(tmdbFetch(cat.path, { page })));
 
   const params = { page, with_genres: genre, primary_release_year: year, 'vote_average.gte': minRating, include_adult: false };
   switch (cat.id) {
@@ -129,12 +133,11 @@ export async function listMovies({ category = 'popular', genre, year, minRating,
     default:
       Object.assign(params, { sort_by: 'popularity.desc', 'vote_count.gte': minRating ? 50 : undefined });
   }
-  return toPage(await tmdbFetch('/discover/movie', params));
+  return toPage(await withGenres(tmdbFetch('/discover/movie', params)));
 }
 
 export async function searchMovies(q, page = 1) {
-  await ensureGenres();
-  return toPage(await tmdbFetch('/search/movie', { query: q, page, include_adult: false }));
+  return toPage(await withGenres(tmdbFetch('/search/movie', { query: q, page, include_adult: false })));
 }
 
 /** Best YouTube trailer: official Trailers first, then any Trailer, then Teasers. */
@@ -149,4 +152,5 @@ export async function getTrailer(id) {
 export function _clearTmdbCache() {
   cache.clear();
   genreMap = null;
+  genresInFlight = null;
 }

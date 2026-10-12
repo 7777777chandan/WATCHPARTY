@@ -7,3 +7,4 @@ logs/
 loadtest/results/*.json
 !loadtest/results/.gitkeep
 .DS_Store
+e2e/screens/

@@ -73,9 +73,18 @@
       }, cfg.bufferMs);
     }
     // --- API ---
+    failIfBlocked(id) {
+      // Test hook: ids listed in cfg.errorVideos behave like a non-embeddable video (error 150).
+      if ((cfg.errorVideos || []).includes(id)) {
+        setTimeout(() => this.events.onError && this.events.onError({ target: this, data: 150 }), 20);
+        return true;
+      }
+      return false;
+    }
     loadVideoById(a) {
       const o = typeof a === 'string' ? { videoId: a, startSeconds: arguments[1] || 0 } : a;
       this.videoId = o.videoId;
+      if (this.failIfBlocked(o.videoId)) return;
       this.pos = o.startSeconds || 0;
       this.anchor = now();
       this.startPlaying();
@@ -83,6 +92,7 @@
     cueVideoById(a) {
       const o = typeof a === 'string' ? { videoId: a, startSeconds: arguments[1] || 0 } : a;
       this.videoId = o.videoId;
+      if (this.failIfBlocked(o.videoId)) return;
       this.pos = o.startSeconds || 0;
       this.anchor = now();
       clearTimeout(this.bufTimer);

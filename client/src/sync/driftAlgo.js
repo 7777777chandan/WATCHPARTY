@@ -27,8 +27,8 @@ export function pickRate(wanted, rates) {
  * Returns { action: 'none'|'restore'|'soft'|'hard', rate? }.
  *
  *  |drift| < 0.15 s          -> none (restore rate 1 if a soft correction was running)
- *  0.15 <= |drift| < 1.5 s   -> soft: 1.05x when behind, 0.95x when ahead, until |drift| < 0.1
- *  |drift| >= 1.5 s          -> hard seek to the expected position
+ *  0.15 <= |drift| < 0.5 s   -> soft: 1.05x when behind, 0.95x when ahead, until |drift| < 0.1
+ *  |drift| >= 0.5 s          -> hard seek to the expected position (see DRIFT_HARD for why 0.5)
  * Without fine-grained rates, soft correction is impossible (1.05 rounds to 1, and 1.25 would
  * be clearly audible), so we tolerate drift up to 0.4 s (still under the 500 ms target) and
  * hard seek above that.

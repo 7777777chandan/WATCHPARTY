@@ -135,3 +135,12 @@ test('host transfer, kick and ban, lock', async () => {
   const d = await srv.connect();
   assert.equal((await emit(d, 'room:join', { code, name: 'D', userId: uid() })).code, 'LOCKED');
 });
+
+test('same socket switching identity in a room does not leave a ghost member', async () => {
+  const a = await srv.connect();
+  const s = await srv.connect();
+  const { code } = await emit(a, 'room:create', { name: 'Host', userId: uid() });
+  await emit(s, 'room:join', { code, name: 'First', userId: uid() });
+  const res = await emit(s, 'room:join', { code, name: 'Second', userId: uid() });
+  assert.deepEqual(res.room.users.map((u) => u.name), ['Host', 'Second']);
+});

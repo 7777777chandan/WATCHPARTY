@@ -1,6 +1,9 @@
+import { logger } from './logger.js';
+
 /**
  * Named timers owned by one room. set() replaces a timer with the same key, and
  * clearAll() runs when a room is deleted so no callback fires on a dead room.
+ * A throwing callback is logged, never allowed to crash the process.
  */
 export class TimerBag {
   constructor() {
@@ -11,7 +14,11 @@ export class TimerBag {
     this.clear(key);
     const handle = setTimeout(() => {
       this.timers.delete(key);
-      fn();
+      try {
+        fn();
+      } catch (err) {
+        logger.error(`[timer ${key}]`, err);
+      }
     }, ms);
     this.timers.set(key, handle);
   }

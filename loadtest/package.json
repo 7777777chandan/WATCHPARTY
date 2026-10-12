@@ -1,0 +1,24 @@
+{
+  "name": "watch-party-loadtest",
+  "version": "1.0.0",
+  "description": "Latency, drift and correctness load tests for Watch Party",
+  "main": "run.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test:mixed": "node run.js --scenario mixed --clients 15 --duration 120",
+    "test:burst": "node run.js --scenario burst --clients 15 --duration 60 --actionInterval 3000",
+    "test:churn": "node run.js --scenario churn --clients 15 --duration 90",
+    "test:chat": "node run.js --scenario chat --clients 15 --duration 60",
+    "test:scale10": "node run.js --scenario mixed --clients 10 --duration 60",
+    "test:scale30": "node run.js --scenario mixed --clients 30 --duration 60",
+    "test:fine": "node run.js --scenario mixed --clients 15 --duration 60 --fineRates",
+    "test:all": "node all.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.8.4"
+  },
+  "type": "module"
+}
