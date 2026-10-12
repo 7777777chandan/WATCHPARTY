@@ -1,0 +1,69 @@
+/* Design tokens. Dark is the default theme; [data-theme="light"] overrides colors only. */
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.75rem;
+  --fs-hero: clamp(2.2rem, 6vw, 3.6rem);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --shadow: 0 8px 30px rgb(0 0 0 / 0.35);
+  --transition: 150ms ease;
+
+  /* dark palette */
+  --bg: #0f1117;
+  --bg-elev: #171a23;
+  --bg-elev-2: #1f2330;
+  --bg-hover: #272c3b;
+  --border: #2c3243;
+  --text: #e8eaf1;
+  --text-muted: #9aa3b8;
+  --accent: #8b6cff;
+  --accent-strong: #a48bff;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgb(139 108 255 / 0.16);
+  --pop: #ffb648;
+  --good: #3ecf8e;
+  --warn: #f5b942;
+  --bad: #ff5d6c;
+  --focus: #ffd166;
+  --overlay: rgb(8 10 15 / 0.78);
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f5f6fa;
+  --bg-elev: #ffffff;
+  --bg-elev-2: #eef0f6;
+  --bg-hover: #e4e7f0;
+  --border: #d6dae5;
+  --text: #171a23;
+  --text-muted: #5b647a;
+  --accent: #6a4cf0;
+  --accent-strong: #5636e0;
+  --accent-soft: rgb(106 76 240 / 0.12);
+  --pop: #d9860b;
+  --good: #14915a;
+  --warn: #b7791f;
+  --bad: #d92d43;
+  --focus: #b8860b;
+  --overlay: rgb(15 17 23 / 0.7);
+  --shadow: 0 8px 30px rgb(20 20 40 / 0.15);
+  color-scheme: light;
+}

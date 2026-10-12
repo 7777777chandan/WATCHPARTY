@@ -1,19 +1,14 @@
-import { useEffect, useState } from 'react';
-import { socket } from './socket';
+import { Route, Routes } from 'react-router-dom';
+import Landing from './pages/Landing.jsx';
+import Room from './pages/Room.jsx';
+import StatusScreen from './components/StatusScreen.jsx';
 
 export default function App() {
-  const [id, setId] = useState(null);
-  useEffect(() => {
-    const onConnect = () => setId(socket.id);
-    const onDisconnect = () => setId(null);
-    socket.on('connect', onConnect);
-    socket.on('disconnect', onDisconnect);
-    socket.connect();
-    return () => {
-      socket.off('connect', onConnect);
-      socket.off('disconnect', onDisconnect);
-      socket.disconnect();
-    };
-  }, []);
-  return <main>{id ? `Connected (socket id: ${id})` : 'Disconnected'}</main>;
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/room/:code" element={<Room />} />
+      <Route path="*" element={<StatusScreen emoji="🧭" title="Page not found">There is nothing here.</StatusScreen>} />
+    </Routes>
+  );
 }

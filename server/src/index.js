@@ -1,28 +1,26 @@
 import 'dotenv/config';
-import http from 'node:http';
-import express from 'express';
-import cors from 'cors';
-import { Server } from 'socket.io';
-import { createOriginChecker } from './utils/corsOrigin.js';
+import { createAppServer } from './app.js';
+import { logger } from './utils/logger.js';
 
 const PORT = Number(process.env.PORT) || 3001;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:5173';
 
-const app = express();
-const corsOrigin = createOriginChecker(CLIENT_ORIGIN, process.env.ALLOW_LAN !== 'false');
-app.use(cors({ origin: corsOrigin }));
-app.use(express.json());
-
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', uptime: process.uptime() });
+// Never exit silently: log loudly. An uncaught exception leaves the process in an unknown
+// state, so we log it and exit with an error code (nodemon / a process manager restarts it).
+process.on('unhandledRejection', (reason) => {
+  logger.error('[process] unhandledRejection', reason);
+});
+process.on('uncaughtException', (err) => {
+  logger.error('[process] uncaughtException', err);
+  process.exitCode = 1;
+  setTimeout(() => process.exit(1), 100).unref();
 });
 
-const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: corsOrigin } });
-
-io.on('connection', (socket) => {
-  console.log(`[socket] connected ${socket.id}`);
-  socket.on('disconnect', (reason) => console.log(`[socket] disconnected ${socket.id} (${reason})`));
+const { server } = createAppServer({
+  clientOrigin: CLIENT_ORIGIN,
+  allowLan: process.env.ALLOW_LAN !== 'false',
 });
 
-server.listen(PORT, () => console.log(`[server] listening on http://localhost:${PORT}`));
+server.listen(PORT, () => {
+  logger.info(`[server] listening on http://localhost:${PORT} (client origin ${CLIENT_ORIGIN})`);
+});
