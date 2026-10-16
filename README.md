@@ -82,3 +82,6 @@ loadtest/  socket.io bots: latency, drift, correctness              → npm run 
 e2e/       Playwright browser tests with a fake YouTube player       → npm test
 docs/      REPORT, EVENTS, FAILURE_HANDLING, DESIGN
 ```
+## Website
+
+[Watch Party](https://watchparty-client-mocha.vercel.app)
