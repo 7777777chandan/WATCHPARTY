@@ -2,6 +2,11 @@
 
 Watch YouTube together in sync. Rooms with invite links, synchronized play/pause/seek with automatic drift correction, live chat, floating emoji reactions pinned to the video timeline, a shared voting playlist, group polls, TMDB movie discovery with typo-tolerant search, host controls, and a synchronized countdown.
 
+## Website
+
+[Watch Party](https://watchparty-client-mocha.vercel.app)
+
+
 **📄 Full report: [docs/REPORT.md](docs/REPORT.md)**: architecture, sync algorithms, measured latency and drift, failure handling, limitations.
 Other docs: [socket events](docs/EVENTS.md) · [failure handling](docs/FAILURE_HANDLING.md) · [design notes](docs/DESIGN.md) · [changelog](CHANGELOG.md)
 
@@ -82,6 +87,3 @@ loadtest/  socket.io bots: latency, drift, correctness              → npm run 
 e2e/       Playwright browser tests with a fake YouTube player       → npm test
 docs/      REPORT, EVENTS, FAILURE_HANDLING, DESIGN
 ```
-## Website
-
-[Watch Party](https://watchparty-client-mocha.vercel.app)
